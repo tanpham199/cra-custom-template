@@ -13,8 +13,12 @@ Remove webpack source-map ([`GENERATE_SOURCEMAP=false`](/.env)) and image-inline
 - `development` : Development build
 - `staging` : Production build with configs loaded from `.env.staging`
 - `production` : Production build with configs loaded from `.env.production`
-- `staging-hydrate` : Production build with configs loaded from `.env.staging.hydrate` and hydrated dom with `react-snap` to boost LCP speed
-- `production-hydrate` : Production build with configs loaded from `.env.production.hydrate` and hydrated dom with `react-snap` to boost LCP speed
+- `staging-hydrate` : Production build with configs loaded from `.env.staging.hydrate` and hydrated dom with [`react-snap`](https://www.npmjs.com/package/react-snap) to boost LCP speed
+- `production-hydrate` : Production build with configs loaded from `.env.production.hydrate` and hydrated dom with [`react-snap`](https://www.npmjs.com/package/react-snap) to boost LCP speed
+
+### Static path for built files
+
+Adjust static resourses public path using `REACT_APP_PUBLIC_PATH` key in any desired .env file
 
 ### CSS module className config
 
@@ -24,7 +28,7 @@ Hash length can be configured in [`.env`](/.env) using `CSS_MODULE_HASH_LENGTH` 
 
 ### Build output versioning
 
-Disable hash filename, instead, use version in [`package.json`](/package.json) for versioning
+Disable hash filename, instead, use version in [`package.json`](/package.json) for versioning.
 
 ### Linter
 
@@ -34,7 +38,13 @@ Disable hash filename, instead, use version in [`package.json`](/package.json) f
 
 ### Baseline CSS preset
 
-CSS normalize and global utilities CSS classes preset in [`src/styles`](/src/styles/)
+CSS normalize and global utilities CSS classes preset in [`src/styles`](/src/styles/).
+
+### Local server for testing build output
+
+Local [Expressjs](https://expressjs.com/) server to serve file in build folder for testing staging/production build.
+
+Configure server in [server.js](./server.js) file.
 
 ### Utilities functions
 

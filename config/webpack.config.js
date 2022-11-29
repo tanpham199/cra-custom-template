@@ -34,6 +34,10 @@ const VERSION =
   CUSTOM_ENV === 'production' || CUSTOM_ENV === 'production-hydrate'
     ? PACKAGE.version
     : `stg-${PACKAGE.version}`;
+let PUBLIC_PATH = process.env.REACT_APP_PUBLIC_PATH;
+if (PUBLIC_PATH != null && !PUBLIC_PATH.endsWith('/')) {
+  PUBLIC_PATH = `${PUBLIC_PATH}/`;
+}
 
 // Source maps are resource heavy and can cause out of memory issue for large source files.
 const shouldUseSourceMap = process.env.GENERATE_SOURCEMAP !== 'false';
@@ -219,7 +223,7 @@ module.exports = function (webpackEnv) {
       // webpack uses `publicPath` to determine where the app is being served from.
       // It requires a trailing slash, or the file assets will get an incorrect path.
       // We inferred the "public path" (such as / or /my-project) from homepage.
-      publicPath: paths.publicUrlOrPath,
+      publicPath: isEnvProduction && PUBLIC_PATH != null ? PUBLIC_PATH : paths.publicUrlOrPath,
       // Point sourcemap entries to original disk location (format as URL on Windows)
       devtoolModuleFilenameTemplate: isEnvProduction
         ? (info) => path.relative(paths.appSrc, info.absoluteResourcePath).replace(/\\/g, '/')
