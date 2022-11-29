@@ -96,7 +96,8 @@ console.log(safeArr(1));
 []
 */
 
-safeArr(response.data).map((item) => <div key={item}>{item}</div>); // this will not throw render exception even if server return undefined as data
+// this will not throw render exception even if server responds with null as data
+safeArr(response.data as string[] | null).map((item) => <div key={item}>{item}</div>);
 ```
 
 #### [getJson](/src/utils/apis/getJson.ts)
