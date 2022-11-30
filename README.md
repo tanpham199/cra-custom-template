@@ -22,7 +22,7 @@ Adjust static resourses public path using `REACT_APP_PUBLIC_PATH` key in any des
 
 ### CSS module className config
 
-Only use `hash` for className for production environment and default `fileNameOrFolder_localName__hash` className for other environments.
+Default `fileNameOrFolder_localName__hash` className for development and staging environments for debugging, but only use `hash` for production environment to reduce final CSS file size.
 
 Hash length can be configured in [`.env`](/.env) using `CSS_MODULE_HASH_LENGTH` key.
 
@@ -33,7 +33,7 @@ Disable hash filename, instead, use version in [`package.json`](/package.json) f
 ### Linter
 
 - ESLint with airbnb configs
-- Stylelint with SCSS and SCSS module config
+- Stylelint with SCSS and SCSS module configs
 - Pre-commit hook to format, run test and lint committed files
 
 ### Baseline CSS preset
