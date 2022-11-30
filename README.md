@@ -1,6 +1,6 @@
-# React Project Skeleton
+# CRA Custom Template
 
-Production ready skeleton bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Production ready template bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## What is on the table
 
