@@ -80,34 +80,7 @@ Format date string or date mili-second into human readable string using native D
 ```ts
 import formatDate from './utils/formatDate';
 
-console.log(formatDate(1669620413128));
-
-/* expected console output
-28/11/2022
-*/
-```
-
-#### [safeArr](/src/utils/safeArr.ts)
-
-Make sure output is always an array (best used for type guarding when fetching data)
-
-```tsx
-import safeArr from './utils/safeArr';
-
-console.log(safeArr([1, 2, 3, 4]));
-console.log(safeArr(['a', 'b', 'c', 'd']));
-console.log(safeArr(undefined));
-console.log(safeArr(1));
-
-/* expected console output
-[1, 2, 3, 4]
-['a', 'b', 'c', 'd']
-[]
-[]
-*/
-
-// this will not throw render exception even if server responds with null as data
-safeArr(response.data as string[] | null).map((item) => <div key={item}>{item}</div>);
+console.log(formatDate(1669620413128)); // 28/11/2022
 ```
 
 #### [getJson](/src/utils/apis/getJson.ts)
@@ -168,4 +141,53 @@ const data = await postJson<string>({
 });
 // if an exception is thrown, or error_code < 0, helper will return undefined
 console.log(data); // data will have string | undefined type
+```
+
+#### [safeArr](/src/utils/safeArr.ts)
+
+Make sure output is always an array (best used for type guarding when fetching data)
+
+```ts
+import safeArr from './utils/safeArr';
+
+console.log(safeArr([1, 2, 3, 4])); // [1, 2, 3, 4]
+console.log(safeArr(['a', 'b', 'c', 'd'])); // ['a', 'b', 'c', 'd']
+console.log(safeArr(undefined)); // []
+console.log(safeArr(1)); // []
+```
+
+```tsx
+// this component will not throw render exception even if server responds with null or undefined as data
+import { useEffect, useState } from 'react';
+import getJson from './utils/apis/getJson';
+import safeArr from './utils/safeArr';
+
+const MyList = () => {
+  const [list, setList] = useState<string[]>([]);
+
+  useEffect(() => {
+    void getJson<string[]>({
+      path: '/my/api/path',
+      success: (data) => {
+        // prevent non-array data
+        setList(safeArr(data));
+      },
+      fail: (resp) => {
+        console.error(resp.error_message);
+      },
+    });
+  }, []);
+
+  // safe to use array methods and properties
+  return (
+    <>
+      <h2>Total: {list.length}</h2>
+      {list.map((item) => (
+        <div key={item}>{item}</div>
+      ))}
+    </>
+  );
+};
+
+export default MyList;
 ```
