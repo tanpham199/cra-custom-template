@@ -11,6 +11,7 @@ const loaderUtils = require('loader-utils');
 const path = require('path');
 
 const CUSTOM_ENV = process.env.REACT_APP_ENV;
+const PREFIX = process.env.CSS_MODULE_PREFIX ?? '';
 
 module.exports = function getLocalIdent(context, localIdentName, localName, options) {
   // Use the filename or folder name, based on some uses the index.js / index.module.(css|scss|sass) project style
@@ -34,5 +35,5 @@ module.exports = function getLocalIdent(context, localIdentName, localName, opti
     options
   );
   // Remove the .module that appears in every classname when based on the file and replace all "." with "_".
-  return className.replace('.module_', '_').replace(/\./g, '_');
+  return `${PREFIX}${className.replace('.module_', '_').replace(/\./g, '_')}`;
 };

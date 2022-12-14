@@ -20,11 +20,11 @@ Remove webpack source-map ([`GENERATE_SOURCEMAP=false`](/.env)) and image-inline
 
 Adjust static resourses public path using `REACT_APP_PUBLIC_PATH` key in any desired .env file
 
-### CSS module className config
+### CSS module class name config
 
-Default `fileNameOrFolder_localName__hash` className for development and staging environments for debugging, but only use `hash` for production environment to reduce final CSS file size.
-
-Hash length can be configured in [`.env`](/.env) using `CSS_MODULE_HASH_LENGTH` key.
+- Default `fileNameOrFolder_localName__hash` class name for development and staging environments for debugging, but only use `hash` for production environment to reduce final CSS file size.
+- Hash length can be configured in any desired .env file using `CSS_MODULE_HASH_LENGTH` key.
+- Support class name pre-fix using `CSS_MODULE_PREFIX` key in any desired .env file. By default, `hash` is generate based on class name and css file path, so it's guaranteed to have unique hash for each class name **ONLY ON CURRENT PROJECT**. Sometimes, hashes can still clash on websites built with micro front-end architecture. With micro front-end architecture, unique class name and css file path is not something we can guarantee, so, for safety, we can add different pre-fix for each micro front-ends, which will allow us to have unique hashes.
 
 ### Build output versioning
 
