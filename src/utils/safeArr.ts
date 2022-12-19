@@ -1,4 +1,4 @@
-const safeArr = <T>(arr?: T[]) => {
+const safeArr = <T>(arr?: T[] | null) => {
   if (Array.isArray(arr)) {
     return arr;
   }

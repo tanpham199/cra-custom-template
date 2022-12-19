@@ -3,7 +3,7 @@ import safeArr from './safeArr';
 describe('utils/safeArr', () => {
   it('should always return an array and maintain data if the original input is an array', () => {
     expect(safeArr()).toEqual([]);
-    expect(safeArr(null as any)).toEqual([]);
+    expect(safeArr(null)).toEqual([]);
     expect(safeArr(1 as any)).toEqual([]);
     expect(safeArr('a' as any)).toEqual([]);
     expect(safeArr([])).toEqual([]);

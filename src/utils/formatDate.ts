@@ -1,7 +1,11 @@
 const fillInSingleNumber = (number: number) => (number < 10 ? `0${number}` : number);
 
-const formatDate = (timestamp?: string | number) => {
-  if (timestamp == null) {
+const formatDate = (timestamp?: string | number | Date | null) => {
+  if (
+    typeof timestamp !== 'string' &&
+    typeof timestamp !== 'number' &&
+    !(timestamp instanceof Date)
+  ) {
     return '';
   }
   const date = new Date(timestamp);
