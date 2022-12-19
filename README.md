@@ -83,44 +83,16 @@ import formatDate from './utils/formatDate';
 console.log(formatDate(1669620413128)); // 28/11/2022
 ```
 
-#### [getJson](/src/utils/apis/getJson.ts)
-
-Handle get request and process response
-
-```ts
-import getJson from './utils/apis/getJson';
-
-getJson<string>({
-  path: '/my/api/path',
-  success: (data) => {
-    console.log(data); // data will have string type
-  },
-  fail: (resp) => {
-    console.error(resp.error_message);
-  },
-  finished: () => {
-    console.log('All done');
-  },
-});
-
-// OR
-
-const data = await getJson<string>({
-  path: '/my/api/path',
-});
-// if an exception is thrown, or error_code < 0, helper will return undefined
-console.log(data); // data will have string | undefined type
-```
-
-#### [postJson](/src/utils/apis/postJson.ts)
+#### [fetchJson](/src/utils/fetchJson.ts)
 
 Handle post request and process response
 
 ```ts
-import postJson from './utils/apis/postJson';
+import fetchJson from './utils/fetchJson';
 
-postJson<string>({
+fetchJson<string>({
   path: '/my/api/path',
+  method: 'POST',
   body: { payload },
   success: (data) => {
     console.log(data); // data will have string type
@@ -135,8 +107,9 @@ postJson<string>({
 
 // OR
 
-const data = await postJson<string>({
+const data = await fetchJson<string>({
   path: '/my/api/path',
+  method: 'POST',
   body: { payload },
 });
 // if an exception is thrown, or error_code < 0, helper will return undefined
@@ -159,14 +132,14 @@ console.log(safeArr(1)); // []
 ```tsx
 // this component will not throw render exception even if server responds with null or undefined as data
 import { useEffect, useState } from 'react';
-import getJson from './utils/apis/getJson';
+import fetchJson from './utils/fetchJson';
 import safeArr from './utils/safeArr';
 
 const MyList = () => {
   const [list, setList] = useState<string[]>([]);
 
   useEffect(() => {
-    void getJson<string[]>({
+    void fetchJson<string[]>({
       path: '/my/api/path',
       success: (data) => {
         // prevent non-array data
