@@ -1,9 +1,9 @@
 import glob from 'glob';
 
 describe('Package manager', () => {
-  it('should not be npm', (done) => {
+  it('should be yarn, not npm', (done) => {
     glob('**/package-lock.json', {}, (err, files) => {
-      if (err) {
+      if (err != null) {
         console.error('Error occurred when trying to find package-lock.json');
       }
       done();
