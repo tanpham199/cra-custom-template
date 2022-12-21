@@ -85,7 +85,7 @@ console.log(formatDate(1669620413128)); // 28/11/2022
 
 #### [fetchJson](/src/utils/fetchJson.ts)
 
-Handle post request and process response
+Handle HTTP request and process response
 
 ```ts
 import fetchJson from './utils/fetchJson';
