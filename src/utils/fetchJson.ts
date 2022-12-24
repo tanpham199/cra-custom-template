@@ -14,11 +14,27 @@ const failData: ResponseData<undefined> = {
 
 const toQueryString = (object: Record<string, any>) => new URLSearchParams(object).toString();
 
+export const createApiEndpoint = (domain?: string | null, path?: string | null) => {
+  const _domain = domain ?? '';
+  const _path = path ?? '';
+  if (_domain + _path === '') {
+    return '/';
+  }
+  const domainHasSlash = _domain.endsWith('/');
+  const pathHasSlash = _path.startsWith('/');
+  if (domainHasSlash && pathHasSlash) {
+    return `${_domain.slice(0, -1)}${_path}`;
+  }
+  if (!domainHasSlash && !pathHasSlash) {
+    return `${_domain}/${_path}`;
+  }
+  return `${_domain}${_path}`;
+};
+
 interface FetchParams<T> {
   domain?: string;
   path?: string;
   query?: Record<string, any>;
-  manualQuery?: string;
   method?: Method;
   body?: Record<string, any>;
   success?: (data: T) => void;
@@ -27,19 +43,18 @@ interface FetchParams<T> {
 }
 
 const fetchJson = async <T = any>({
-  domain = process.env.REACT_APP_API_DOMAIN ?? '',
-  path = '',
+  domain = process.env.REACT_APP_API_DOMAIN,
+  path,
+  query,
+  method,
+  body,
   success,
   fail,
   finished,
-  query,
-  manualQuery = '',
-  method,
-  body,
 }: FetchParams<T>): Promise<T | undefined> => {
   try {
     const resp = await fetch(
-      `${domain}${path}${query ? `?${toQueryString(query)}` : ''}${manualQuery}`,
+      `${createApiEndpoint(domain, path)}${query ? `?${toQueryString(query)}` : ''}`,
       {
         method,
         body: body ? new URLSearchParams(body) : undefined,
