@@ -37,6 +37,7 @@ interface FetchParams<T> {
   query?: Record<string, any>;
   method?: Method;
   body?: Record<string, any>;
+  signal?: AbortSignal;
   success?: (data: T) => void;
   fail?: (data: ResponseData<T | undefined>) => void;
   finished?: () => void;
@@ -48,6 +49,7 @@ const fetchJson = async <T = any>({
   query,
   method,
   body,
+  signal,
   success,
   fail,
   finished,
@@ -58,6 +60,7 @@ const fetchJson = async <T = any>({
       {
         method,
         body: body ? new URLSearchParams(body) : undefined,
+        signal,
       }
     );
     const data = (await resp.json()) as ResponseData<T>;
