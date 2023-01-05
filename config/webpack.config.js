@@ -213,11 +213,11 @@ module.exports = function (webpackEnv) {
       // There will be one main bundle, and one file per asynchronous chunk.
       // In development, it does not produce real files.
       filename: isEnvProduction
-        ? `js/[name]-${VERSION}.js`
+        ? `js/${VERSION}-[name].js`
         : isEnvDevelopment && 'static/js/bundle.js',
       // There are also additional JS chunk files if you use code splitting.
       chunkFilename: isEnvProduction
-        ? `js/[name]-${VERSION}.chunk.js`
+        ? `js/${VERSION}-[name].chunk.js`
         : isEnvDevelopment && 'static/js/[name].chunk.js',
       assetModuleFilename: 'media/[name][ext]',
       // webpack uses `publicPath` to determine where the app is being served from.
@@ -610,8 +610,8 @@ module.exports = function (webpackEnv) {
         new MiniCssExtractPlugin({
           // Options similar to the same options in webpackOptions.output
           // both options are optional
-          filename: `css/[name]-${VERSION}.css`,
-          chunkFilename: `css/[name]${VERSION}.chunk.css`,
+          filename: `css/${VERSION}-[name].css`,
+          chunkFilename: `css/${VERSION}-[name].chunk.css`,
         }),
       // Generate an asset manifest file with the following content:
       // - "files" key: Mapping of all asset filenames to their corresponding
